@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entrée - Visite virtuelle RGF</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 🌟 PORTE */
+        .porte {
+            position: absolute;
+            left: 44%;
+            top: 33%;
+            width: 16%;
+            height: 45%;
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .porte:hover {
+            filter: brightness(1.15);
+            transform: scale(1.01);
+        }
+
+        .porte:active {
+            transform: scale(0.98);
+        }
+
+        /* cercle interactif */
+        .porte::after {
+
+            content: "➜";
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%) scale(0);
+
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            background: rgba(0,120,215,0.9);
+
+            color: white;
+            font-size: 45px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: 0.25s ease;
+
+            box-shadow: 0 0 25px rgba(0,120,215,0.6);
+        }
+
+        .porte:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* 🌟 BOUTON */
+        .bouton {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+
+            background-color: #0078D7;
+            color: white;
+
+            border: none;
+            border-radius: 10px;
+
+            padding: 12px 24px;
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+            opacity: 0.9;
+        }
+
+        .bouton:hover {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        /* 🌟 TRANSITION SORTIE CINÉMATIQUE */
+        .transition-out {
+            animation: cinematicExit 0.7s ease-in-out forwards;
+        }
+
+        @keyframes cinematicExit {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0px);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.04);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.15);
+                filter: blur(10px);
+            }
+        }
+
+        /* 🌟 FLASH PLUS PROPRE */
+        .flash {
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .flash.active {
+            animation: flashAnim 0.4s ease-out;
+        }
+
+        @keyframes flashAnim {
+            0% { opacity: 0; }
+            40% { opacity: 0.6; }
+            100% { opacity: 0; }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img src="entree.jpeg" class="photo">
+
+        <div class="flash" id="flash"></div>
+
+        <div class="porte" onclick="enterVisit()"></div>
+
+        <button class="bouton"
+                onclick="window.location.href='index.html'">
+            Retour à l'accueil
+        </button>
+
+    </div>
+
+    <script>
+        function enterVisit() {
+
+            document.getElementById("flash").classList.add("active");
+
+            document.body.classList.add("transition-out");
+
+            setTimeout(() => {
+                window.location.href = "photo1.html";
+            }, 700);
+        }
+    </script>
+
+</body>
+
+</html>
